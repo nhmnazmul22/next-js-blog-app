@@ -50,6 +50,7 @@ function Page() {
       });
     } else {
       toast.error("Something Went Error");
+      setLoading(false);
     }
   };
 

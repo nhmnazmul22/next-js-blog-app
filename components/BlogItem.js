@@ -5,7 +5,7 @@ import Link from "next/link";
 const BlogItem = ({ blog }) => {
   return (
     <div className="max-w-[330px] sm:max-w-[300px] bg-white border border-black hover:shadow-[-7px_7px_0px_#000000] duration-200">
-      <Link href={`/blogs/${blog.id}`}>
+      <Link href={`/blogs/${blog._id}`}>
         <Image
           src={blog.image}
           alt="blog"
@@ -22,13 +22,13 @@ const BlogItem = ({ blog }) => {
           {blog.title}
         </h5>
         <p className="mb-3 text-sm tracking-tight text-gray-700">
-          {blog.description}
+          {blog.content}
         </p>
         <Link
-          href={`/blogs/${blog.id}`}
+          href={`/blogs/${blog._id}`}
           className="inline-flex items-center py-2 font-semibold text-center "
         >
-          Read More{" "}
+          Read More
           <Image src={assets.arrow} className="ml-2" alt="" width={12} />
         </Link>
       </div>

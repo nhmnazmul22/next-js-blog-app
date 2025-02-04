@@ -1,12 +1,28 @@
-import { blog_data } from "@/assets/assets";
-import { useState } from "react";
+import axios from "axios";
+import { useEffect, useState } from "react";
+import toast from "react-hot-toast";
 import BlogItem from "./BlogItem";
+import BlogSkeleton from "./skeleton/BlogSkeleton";
 
 const BlogList = () => {
   const [menu, setMenu] = useState("All");
+  const [blogs, setBlogs] = useState(null);
+
+  const fetchBlogs = async () => {
+    const response = await axios.get("/api/blog");
+    if (response.data.success) {
+      setBlogs(response.data.blogs);
+    } else {
+      toast.error("Something went wrong");
+    }
+  };
+
+  useEffect(() => {
+    fetchBlogs();
+  }, []);
 
   return (
-    <div>
+    <div className="min-h-screen">
       <div className="flex justify-center gap-6 my-10">
         <button
           onClick={() => setMenu("All")}
@@ -46,15 +62,16 @@ const BlogList = () => {
         </button>
       </div>
       <div className="flex flex-wrap justify-around gap-1 gap-y-10 mb-16 xl:mx-24">
-        {blog_data
-          .filter((blog) => (menu === "All" ? true : blog.category === menu))
-          .map((blog) => (
-            <BlogItem key={blog.id} blog={blog} />
-          ))}
+        {blogs !== null ? (
+          blogs
+            .filter((blog) => (menu === "All" ? true : blog.category === menu))
+            .map((blog) => <BlogItem key={blog._id} blog={blog} />)
+        ) : (
+          <BlogSkeleton />
+        )}
       </div>
     </div>
   );
 };
-
 
 export default BlogList;

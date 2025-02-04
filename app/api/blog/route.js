@@ -13,6 +13,11 @@ LoadDatabase();
 // GET Response
 export const GET = async (request) => {
   try {
+    const blogId = request.nextUrl.searchParams.get("id");
+    if (blogId) {
+      const blog = await BlogModel.findById(blogId);
+      return NextResponse.json({ success: true, blog });
+    }
     const blogs = await BlogModel.find({});
     return NextResponse.json({ success: true, blogs });
   } catch (err) {

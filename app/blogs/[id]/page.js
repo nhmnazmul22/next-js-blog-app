@@ -1,6 +1,7 @@
 "use client";
-import { assets, blog_data } from "@/assets/assets";
+import { assets } from "@/assets/assets";
 import Footer from "@/components/Footer";
+import axios from "axios";
 import Image from "next/image";
 import Link from "next/link";
 import { useParams } from "next/navigation";
@@ -9,14 +10,13 @@ const Page = () => {
   const params = useParams();
   const [data, setData] = useState(null);
 
-  const fetchBlogData = () => {
-    for (let i = 0; i < blog_data.length; i++) {
-      if (Number(params.id) === blog_data[i].id) {
-        setData(blog_data[i]);
-        console.log(blog_data[i]);
-        break;
-      }
-    }
+  const fetchBlogData = async () => {
+    const res = await axios.get("/api/blog", {
+      params: {
+        id: params.id,
+      },
+    });
+    setData(res.data.blog)
   };
 
   useEffect(() => {
@@ -44,7 +44,7 @@ const Page = () => {
             {data.title}
           </h1>
           <Image
-            src={data.author_img}
+            src={data.authorImg}
             alt=""
             width={60}
             height={60}
@@ -64,7 +64,7 @@ const Page = () => {
           height={720}
         />
         <h1 className="my-8 text-[26px] font-semibold">Introduction:</h1>
-        <p>{data.description}</p>
+        <p>{data.content}</p>
         <h3 className="my-5 text-[18px] font-semibold">
           Step 1: Lorem ipsum dolor sit amet consectetur adipisicing elit.
           Adipisci, voluptas?
@@ -151,7 +151,7 @@ const Page = () => {
       <Footer />
     </>
   ) : (
-    <></>
+    <p>Loading...</p>
   );
 };
 
