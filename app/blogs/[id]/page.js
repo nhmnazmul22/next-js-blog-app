@@ -16,7 +16,7 @@ const Page = () => {
         id: params.id,
       },
     });
-    setData(res.data.blog)
+    setData(res.data.blog);
   };
 
   useEffect(() => {
@@ -63,65 +63,11 @@ const Page = () => {
           width={1280}
           height={720}
         />
-        <h1 className="my-8 text-[26px] font-semibold">Introduction:</h1>
-        <p>{data.content}</p>
-        <h3 className="my-5 text-[18px] font-semibold">
-          Step 1: Lorem ipsum dolor sit amet consectetur adipisicing elit.
-          Adipisci, voluptas?
-        </h3>
-        <p className="my-3">
-          Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptates
-          error in omnis ex numquam alias, architecto beatae, perspiciatis
-          consequatur, doloremque laboriosam et temporibus? Iste culpa ex
-          praesentium amet ipsum perferendis?
-        </p>
-        <p className="my-3">
-          Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptates
-          error in omnis ex numquam alias, architecto beatae, perspiciatis
-          consequatur, doloremque laboriosam et temporibus? Iste culpa ex
-          praesentium amet ipsum perferendis?
-        </p>
-        <h3 className="my-5 text-[18px] font-semibold">
-          Step 2: Lorem ipsum dolor sit amet consectetur adipisicing elit.
-          Adipisci, voluptas?
-        </h3>
-        <p className="my-3">
-          Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptates
-          error in omnis ex numquam alias, architecto beatae, perspiciatis
-          consequatur, doloremque laboriosam et temporibus? Iste culpa ex
-          praesentium amet ipsum perferendis?
-        </p>
-        <p className="my-3">
-          Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptates
-          error in omnis ex numquam alias, architecto beatae, perspiciatis
-          consequatur, doloremque laboriosam et temporibus? Iste culpa ex
-          praesentium amet ipsum perferendis?
-        </p>
-        <h3 className="my-5 text-[18px] font-semibold">
-          Step 3: Lorem ipsum dolor sit amet consectetur adipisicing elit.
-          Adipisci, voluptas?
-        </h3>
-        <p className="my-3">
-          Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptates
-          error in omnis ex numquam alias, architecto beatae, perspiciatis
-          consequatur, doloremque laboriosam et temporibus? Iste culpa ex
-          praesentium amet ipsum perferendis?
-        </p>
-        <p className="my-3">
-          Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptates
-          error in omnis ex numquam alias, architecto beatae, perspiciatis
-          consequatur, doloremque laboriosam et temporibus? Iste culpa ex
-          praesentium amet ipsum perferendis?
-        </p>
-        <h3 className="my-5 text-[18px] font-semibold">Conclusion:</h3>
-        <p className="my-3">
-          Lorem ipsum dolor sit amet consectetur, adipisicing elit. A quo
-          voluptatibus sint molestiae est. Numquam voluptas illum rerum ex esse
-          laborum, cum doloremque soluta ratione ullam adipisci eligendi natus
-          praesentium ut sequi et, nesciunt qui ea, beatae consequuntur!
-          Voluptatem accusamus quas reiciendis fuga iste cumque magni
-          voluptatibus vero voluptate quisquam!
-        </p>
+        <div
+          className="blog-content"
+          dangerouslySetInnerHTML={{ __html: data.content }}
+        ></div>
+
         <div className="my-24">
           <p className="text-black font-semibold my-4">
             Share this article on social media

@@ -1,7 +1,9 @@
 import { dbConnect } from "@/lib/config/db";
 import BlogModel from "@/lib/models/BlogModel";
+import fs from "fs";
 import { writeFile } from "fs/promises";
 import { NextResponse } from "next/server";
+
 
 // Call Database
 const LoadDatabase = () => {
@@ -10,7 +12,7 @@ const LoadDatabase = () => {
 
 LoadDatabase();
 
-// GET Response
+// Blog GET Request
 export const GET = async (request) => {
   try {
     const blogId = request.nextUrl.searchParams.get("id");
@@ -25,7 +27,7 @@ export const GET = async (request) => {
   }
 };
 
-// POST Response
+// Blog POST Request
 export const POST = async (request) => {
   try {
     const formData = await request.formData();
@@ -53,6 +55,29 @@ export const POST = async (request) => {
     await BlogModel.create(blogData);
 
     return NextResponse.json({ success: true, msg: "Blog Published" });
+  } catch (err) {
+    return NextResponse.json({ success: false, msg: err.toString() });
+  }
+};
+
+// Blog DELETE Request
+export const DELETE = async (request) => {
+  try {
+    const blogId = request.nextUrl.searchParams.get("id");
+    const blog = await BlogModel.findById(blogId);
+
+    // If blog not found
+    if (!blog) {
+      return NextResponse.json({ success: false, msg: "Blog Not Found" });
+    }
+
+    // Unlink the blog image
+    fs.unlink(`./public/${blog.image}`, () => {});
+
+    // Delete the blog
+    await BlogModel.findByIdAndDelete(blogId);
+
+    return NextResponse.json({ success: true, msg: "Blog Deleted" });
   } catch (err) {
     return NextResponse.json({ success: false, msg: err.toString() });
   }
